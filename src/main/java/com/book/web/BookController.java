@@ -1,20 +1,29 @@
 package com.book.web;
 
 import com.book.domain.Book;
+import com.book.domain.LikeBook;
+import com.book.domain.ReaderCard;
 import com.book.service.BookService;
+import com.book.service.LikeBookService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import javax.jws.WebParam;
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 
 @Controller
 public class BookController {
     private BookService bookService;
+    private LikeBookService likeBookService;
+    
+    @Autowired
+    public void setLikeBookService(LikeBookService likeBookService) {
+    	this.likeBookService = likeBookService;
+    }
 
     @Autowired
     public void setBookService(BookService bookService) {
@@ -35,8 +44,27 @@ public class BookController {
         }
     }
     @RequestMapping("/reader_querybook.html")
-    public ModelAndView readerQueryBook(){
-       return new ModelAndView("reader_book_query");
+    public ModelAndView readerQueryBook(HttpServletRequest request){
+       ModelAndView modelAndView =  new ModelAndView("reader_book_query");
+	   if(request.getSession().getAttribute("ReflectionClassId") == null) {
+		   ArrayList<Book> books = bookService.queryBookOrderByLikeNum();
+    	   modelAndView.addObject("books",books);
+	   }
+	   else {
+		   int bookClassId = (int)(request.getSession().getAttribute("BookClassId"));
+	       if(bookClassId == -1) {
+	    	   //查询全部,按likenum排序
+	    	   ArrayList<Book> books = bookService.queryBookOrderByLikeNum();
+	    	   modelAndView.addObject("books",books);
+	       }
+	       else{
+	    	   //查询classId = classId 的，按likeNum排序
+	    	   ArrayList<Book> books = bookService.queryBookByClassId(bookClassId);
+	    	   modelAndView.addObject("books",books);
+	       }
+	   }
+       
+       return modelAndView;
 
     }
     @RequestMapping("/reader_querybook_do.html")
@@ -87,7 +115,6 @@ public class BookController {
         Book book=new Book();
         book.setBookId(0);
         book.setPrice(bookAddCommand.getPrice());
-        book.setState(bookAddCommand.getState());
         book.setPublish(bookAddCommand.getPublish());
         book.setPubdate(bookAddCommand.getPubdate());
         book.setName(bookAddCommand.getName());
@@ -95,9 +122,8 @@ public class BookController {
         book.setClassId(bookAddCommand.getClassId());
         book.setAuthor(bookAddCommand.getAuthor());
         book.setIntroduction(bookAddCommand.getIntroduction());
-        book.setPressmark(bookAddCommand.getPressmark());
         book.setLanguage(bookAddCommand.getLanguage());
-
+        book.setLikeNum(bookAddCommand.getLikeNum());
 
         boolean succ=bookService.addBook(book);
         ArrayList<Book> books=bookService.getAllBooks();
@@ -126,7 +152,6 @@ public class BookController {
         Book book=new Book();
         book.setBookId(bookId);
         book.setPrice(bookAddCommand.getPrice());
-        book.setState(bookAddCommand.getState());
         book.setPublish(bookAddCommand.getPublish());
         book.setPubdate(bookAddCommand.getPubdate());
         book.setName(bookAddCommand.getName());
@@ -134,9 +159,8 @@ public class BookController {
         book.setClassId(bookAddCommand.getClassId());
         book.setAuthor(bookAddCommand.getAuthor());
         book.setIntroduction(bookAddCommand.getIntroduction());
-        book.setPressmark(bookAddCommand.getPressmark());
         book.setLanguage(bookAddCommand.getLanguage());
-
+        book.setLikeNum(bookAddCommand.getLikeNum());
 
         boolean succ=bookService.editBook(book);
         if (succ){
@@ -167,9 +191,20 @@ public class BookController {
         Book book=bookService.getBook(bookId);
         ModelAndView modelAndView=new ModelAndView("reader_book_detail");
         modelAndView.addObject("detail",book);
+        if(request.getSession().getAttribute("readercard")==null) {
+        	modelAndView.addObject("noReader","请登录");
+        }
+        else {
+        	ReaderCard readercard = (ReaderCard) request.getSession().getAttribute("readercard");
+        	int readerId = readercard.getReaderId();
+        	if(likeBookService.matchLikeBook(readerId, bookId)) {
+        		modelAndView.addObject("like","like");
+        	}
+        	else {
+        		modelAndView.addObject("notlike","nolike");
+        	}
+        }
         return modelAndView;
     }
-
-
 
 }

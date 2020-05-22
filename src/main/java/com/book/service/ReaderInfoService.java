@@ -1,6 +1,7 @@
 package com.book.service;
 
 import com.book.dao.ReaderInfoDao;
+import com.book.domain.Book;
 import com.book.domain.ReaderInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,6 +16,7 @@ public class ReaderInfoService {
     public void setReaderInfoDao(ReaderInfoDao readerInfoDao) {
         this.readerInfoDao = readerInfoDao;
     }
+    
     public ArrayList<ReaderInfo> readerInfos(){
         return readerInfoDao.getAllReaderInfo();
     }

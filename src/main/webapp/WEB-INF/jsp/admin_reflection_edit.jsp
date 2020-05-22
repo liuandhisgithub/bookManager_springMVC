@@ -1,7 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>添加读者</title>
+    <title>编辑《 ${detail.name}》</title>
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <script src="js/jquery-3.2.1.js"></script>
     <script src="js/bootstrap.min.js" ></script>
@@ -65,46 +65,46 @@
     </div>
 </nav>
 
-<div class="col-xs-6 col-md-offset-3" style="position: relative;top: 25%">
+<div class="col-xs-6 col-md-offset-3" style="position: relative;top: 10%">
     <div class="panel panel-primary">
         <div class="panel-heading">
-            <h3 class="panel-title">添加读者</h3>
+            <h3 class="panel-title">编辑《 ${detail.name}》</h3>
         </div>
         <div class="panel-body">
-            <form action="reader_add_do.html" method="post" id="readeredit" >
-                <div class="input-group">
-                    <span  class="input-group-addon">读者证号</span>
-                    <input  type="text" class="form-control" name="readerId" id="readerId" >
-                </div>
+            <form action="reflection_edit_do.html?id=${detail.reflectionId}" method="post" id="addbook" >
 
                 <div class="input-group">
-                    <span class="input-group-addon">姓名</span>
-                    <input type="text" class="form-control" name="name" id="name"  >
+                    <span  class="input-group-addon">标题</span>
+                    <input type="text" class="form-control" name="name" id="name" value="${detail.name}">
                 </div>
                 <div class="input-group">
-                    <span  class="input-group-addon">性别</span>
-                    <input type="text" class="form-control" name="sex" id="sex" >
+                    <span class="input-group-addon">作者id</span>
+                    <input type="text" class="form-control" readonly="readonly" name="readerId" id="readerId" value="${detail.readerId}" >
                 </div>
                 <div class="input-group">
-                    <span class="input-group-addon">生日</span>
-                    <input type="text" class="form-control" name="birth" id="birth"  placeholder="yyyy-mm-dd">
+                    <span  class="input-group-addon">书名</span>
+                    <input type="text" class="form-control" name="bookName" id="bookName"  value="${detail.bookName}" >
                 </div>
                 <div class="input-group">
-                    <span  class="input-group-addon">地址</span>
-                    <input type="text" class="form-control" name="address" id="address"  >
+                    <span class="input-group-addon">类型</span>
+                    <input type="text" class="form-control" name="classId" id="classId" value="${detail.classId}" >
                 </div>
                 <div class="input-group">
-                    <span class="input-group-addon">电话</span>
-                    <input type="text" class="form-control" name="telcode" id="telcode"  placeholder="11位">
+                    <span class="input-group-addon">收藏</span>
+                    <input type="text" class="form-control" name="like" id="like" value="${detail.likeNum}" >
                 </div>
-                <input type="submit" value="添加" class="btn btn-success btn-sm" class="text-left">
+                <div class="input-group">
+                    <span  class="input-group-addon">内容</span>
+                    <input type="text" class="form-control" name="introduction" id="introduction"  value="${detail.introduction}" >
+                </div>
+                <input type="submit" value="确定" class="btn btn-success btn-sm" class="text-left">
                 <script>
                     function mySubmit(flag){
                         return flag;
                     }
-                    $("#readeredit").submit(function () {
-                        if($("#name").val()==''||$("#sex").val()==''||$("#birth").val()==''||$("#address").val()==''||$("#telcode").val()==''){
-                            alert("请填入完整读者信息！");
+                    $("#addbook").submit(function () {
+                        if($("#name").val()==''||$("#readerId").val()==''||$("#classId")||$("#bookName").val()==''||$("#like").val()==''||$("#introduction").val()==''){
+                            alert("请填入完整读后感信息！");
                             return mySubmit(false);
                         }
                     })

@@ -48,11 +48,11 @@
                 </li>
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                        借还管理
+                        读后感管理
                         <b class="caret"></b>
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a href="lendlist.html">借还日志</a></li>
+                        <li><a href="allreflections.html">全部读后感</a></li>
                     </ul>
                 </li>
                 <li >

@@ -1,15 +1,9 @@
-<%@ page import="com.book.domain.Book" %><%--
-  Created by IntelliJ IDEA.
-  User: 君行天下
-  Date: 2017/7/24
-  Time: 19:25
-  To change this template use File | Settings | File Templates.
---%>
+<%@ page import="com.book.domain.Reflection" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
-    <title>我的借还</title>
+    <title>读后感信息</title>
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <script src="js/jquery-3.2.1.js"></script>
     <script src="js/bootstrap.min.js" ></script>
@@ -38,10 +32,21 @@
                         个人信息
                     </a>
                 </li>
-                <li class="active">
-                    <a href="mylend.html" >
-                        我的借还
+                <li >
+                    <a href="reader_queryreflection.html" >
+                        读后感查询
                     </a>
+                </li>
+                <li class="dropdown action">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        我的收藏
+                        <b class="caret"></b>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="likeBook.html">收藏图书</a></li>
+                        <li class="divider"></li>
+                        <li><a href="likeReflection.html">收藏读后感</a></li>
+                    </ul>
                 </li>
                 <li >
                     <a href="reader_repasswd.html" >
@@ -79,44 +84,40 @@
         </div>
     </c:if>
 </div>
-
-<div class="panel panel-default" style="width: 90%;margin-left: 5%;margin-top: 5%">
-    <div class="panel-heading">
-        <h3 class="panel-title">
-            我的借还日志
-        </h3>
-    </div>
-    <div class="panel-body">
-        <table class="table table-hover">
-            <thead>
-            <tr>
-                <th>图书号</th>
-                <th>借出日期</th>
-                <th>归还日期</th>
-                <th>状态</th>
-            </tr>
-            </thead>
-            <tbody>
-            <c:forEach items="${list}" var="alog">
+<c:if test="${!empty reflections}">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title">
+                查询结果：
+            </h3>
+        </div>
+        <div class="panel-body">
+            <table class="table table-hover">
+                <thead>
                 <tr>
-                    <td><c:out value="${alog.bookId}"></c:out></td>
-                    <td><c:out value="${alog.lendDate}"></c:out></td>
-                    <td><c:out value="${alog.backDate}"></c:out></td>
-                    <c:if test="${empty alog.backDate}">
-                        <td>未还</td>
-                    </c:if>
-                    <c:if test="${!empty alog.backDate}">
-                        <td>已还</td>
-                    </c:if>
-                    <c:if test="">
-                        <td>超期</td>
-                    </c:if>
+                    <th>标题</th>
+                    <th>书名</th>
+                    <th>作者id</th>
+                    <th>收藏</th>
+                    <th>详情</th>
                 </tr>
-            </c:forEach>
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                <c:forEach items="${reflections}" var="reflection">
+                    <tr>
+                        <td><c:out value="${reflection.name}"></c:out></td>
+                        <td><c:out value="${reflection.bookName}"></c:out></td>
+                        <td><c:out value="${reflection.readerId}"></c:out></td>
+                        <td><c:out value="${reflection.likeNum}"></c:out></td>
+                        <td><a href="readerreflectiondetail.html?reflectionId=<c:out value="${reflection.reflectionId}"></c:out>"><button type="button" class="btn btn-success btn-xs">详情</button></a></td>
+                    </tr>
+                </c:forEach>
+                </tbody>
+            </table>
+        </div>
     </div>
-</div>
+</c:if>
+
 
 </body>
 </html>

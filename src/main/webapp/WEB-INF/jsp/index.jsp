@@ -1,10 +1,3 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: 君行天下
-  Date: 2017/7/23
-  Time: 16:56
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
@@ -55,12 +48,6 @@
 <h2 style="text-align: center;font-family: 'Adobe 楷体 Std R';color: palevioletred">图 书 馆</h2>
 <div style="float:right;" id="github_iframe"></div>
 <script>
-    /**
-     * Copyright (c) 2016 hustcc
-     * License: MIT
-     * Version: %%GULP_INJECT_VERSION%%
-     * GitHub: https://github.com/hustcc/canvas-nest.js
-     **/
     ! function() {
         //封装方法，压缩之后减少文件大小
         function get_attribute(node, attr, default_value) {
@@ -227,7 +214,7 @@
     <script>
         $("#id").keyup(
             function () {
-                if(isNaN($("#id").val())){
+                if(isNaN($("#id").val())){ //isNaN(x) x是非数字，返回true
                     $("#info").text("提示:账号只能为数字");
                 }
                 else {
@@ -279,7 +266,7 @@
             else {
                 $.ajax({
                     type: "POST",
-                    url: "/api/loginCheck",
+                    url: "/api/loginCheck", //该方法在loginController
                     data: {
                         id:id ,
                         passwd: passwd
@@ -291,7 +278,7 @@
                         } else if(data.stateCode.trim() == "1") {
                             $("#info").text("提示:登陆成功，跳转中...");
                             window.location.href="/admin_main.html";
-                        } else if(data.stateCode.trim() == "2"){
+                        } else if(data.stateCode.trim() == "2"){ //trim() 方法：删除字符串开头和末尾的空格
                             if(remember){
                                 rememberLogin(id,passwd,remember);
                             }else {

@@ -3,6 +3,8 @@ package com.book.web;
 import com.book.domain.Admin;
 import com.book.domain.ReaderCard;
 import com.book.domain.ReaderInfo;
+import com.book.service.LikeBookService;
+import com.book.service.LikeReflectionService;
 import com.book.service.LoginService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -22,7 +24,17 @@ import java.util.HashMap;
 public class LoginController {
 
     private LoginService loginService;
-
+    private LikeBookService likeBookService;
+    private LikeReflectionService likeReflectionService;
+    @Autowired
+    public void setLikeBookService(LikeBookService likeBookService) {
+    	this.likeBookService = likeBookService;
+    }
+    
+    @Autowired
+    public void setLikeReflectionService(LikeReflectionService likeReflectionService) {
+    	this.likeReflectionService = likeReflectionService;
+    }
 
     @Autowired
     public void setLoginService(LoginService loginService) {
@@ -50,7 +62,7 @@ public class LoginController {
         String passwd = request.getParameter("passwd");
                 boolean isReader = loginService.hasMatchReader(id, passwd);
                 boolean isAdmin = loginService.hasMatchAdmin(id, passwd);
-        HashMap<String, String> res = new HashMap<String, String>();
+                HashMap<String, String> res = new HashMap<String, String>();
                 if (isAdmin==false&&isReader==false) {
                     res.put("stateCode", "0");
                     res.put("msg","账号或密码错误！");
@@ -64,6 +76,10 @@ public class LoginController {
                 }else {
                     ReaderCard readerCard = loginService.findReaderCardByUserId(id);
                     request.getSession().setAttribute("readercard", readerCard);
+                    //在这里添加一个reflectionClassId和一个bookClassId，如果用户没有收藏记录，默认为-1，
+                    //如果是-1，则输出前5个收藏数量最多的
+                    request.getSession().setAttribute("BookClassId", likeBookService.getReaderLikeBookClass(id));
+                    request.getSession().setAttribute("ReflectionClassId", likeReflectionService.getReaderLikeReflectionClass(id));
                     res.put("stateCode", "2");
                     res.put("msg","读者登陆成功！");
                 }

@@ -17,10 +17,17 @@ public class BookAddCommand {
     private BigDecimal price;
     private Date pubdate;
     private int classId;
-    private int pressmark;
-    private int state;
+    private int likeNum;
 
-    public void setName(String name) {
+    public int getLikeNum() {
+		return likeNum;
+	}
+
+	public void setLikeNum(int likeNum) {
+		this.likeNum = likeNum;
+	}
+
+	public void setName(String name) {
         this.name = name;
     }
 
@@ -66,13 +73,6 @@ public class BookAddCommand {
         this.price = price;
     }
 
-    public void setPressmark(int pressmark) {
-        this.pressmark = pressmark;
-    }
-
-    public void setState(int state) {
-        this.state = state;
-    }
 
     public String getName() {
         return name;
@@ -99,20 +99,12 @@ public class BookAddCommand {
         return introduction;
     }
 
-    public int getPressmark() {
-        return pressmark;
-    }
-
     public String getIsbn() {
         return isbn;
     }
 
     public String getLanguage() {
         return language;
-    }
-
-    public int getState() {
-        return state;
     }
 
     public String getPublish() {

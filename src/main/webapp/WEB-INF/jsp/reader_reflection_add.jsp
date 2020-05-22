@@ -1,7 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>${readercard.name}的主页</title>
+    <title>编写读后感</title>
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <script src="js/jquery-3.2.1.js"></script>
     <script src="js/bootstrap.min.js" ></script>
@@ -10,6 +10,7 @@
             background-color: rgb(240,242,245);
         }
     </style>
+
 </head>
 <body>
 <nav class="navbar navbar-default" role="navigation" style="background-color:#fff">
@@ -34,7 +35,7 @@
                         读后感查询
                     </a>
                 </li>
-               <li class="dropdown">
+                <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                         我的收藏
                         <b class="caret"></b>
@@ -58,57 +59,47 @@
         </div>
     </div>
 </nav>
-<div class="col-xs-5 col-md-offset-3">
-    <div class="panel panel-default">
-        <div class="panel-heading">
-            <h3 class="panel-title">
-                信息修改
-            </h3>
-        </div>
-        <div class="panel-body">
-            <form action="reader_edit_do_r.html" method="post" id="edit" >
 
-                <div class="input-group">
-                    <span  class="input-group-addon">读者证号</span>
-                    <input type="text" readonly="readonly" class="form-control" name="readerId" id="readerId" value="${readerinfo.readerId}">
+<div style="position: relative;top: 10%;width: 80%;margin-left: 10%">
+            <form action="reflection_add_do.html" method="post" id="addbook" >
+                <div class="form-group">
+                    <label for="name">标题</label>
+                    <input type="text" class="form-control" name="name" id="name" placeholder="请输入标题">
                 </div>
-                <div class="input-group">
-                    <span class="input-group-addon">姓名</span>
-                    <input type="text" class="form-control" name="name" id="name" value="${readerinfo.name}" >
+                <div class="form-group">
+                    <label for="author">书名</label>
+                    <input type="text" class="form-control" name="bookName" id="bookName"  value="${bookName}" readonly="readonly">
                 </div>
-                <div class="input-group">
-                    <span  class="input-group-addon">性别</span>
-                    <input type="text" class="form-control" name="sex" id="sex"  value="${readerinfo.sex}" >
+                <div class="form-group">
+                    <label for="publish">作者id</label>
+                    <input type="text" class="form-control"  name="readerId" id="readerId"  value="${readerId}" readonly="readonly">
                 </div>
-                <div class="input-group">
-                    <span class="input-group-addon">生日</span>
-                    <input type="text" class="form-control" name="birth" id="birth"  value="${readerinfo.birth}" >
+                <div class="form-group">
+                    <label for="publish">类型</label>
+                    <input type="text" class="form-control"  name="classId" id="classId"  value="${classId}" readonly="readonly">
                 </div>
-                <div class="input-group">
-                    <span  class="input-group-addon">地址</span>
-                    <input type="text" class="form-control" name="address" id="address"  value="${readerinfo.address}" >
+                <div class="form-group">
+                    <label for="introduction">内容</label>
+                    <textarea class="form-control" rows="30"  name="introduction" id="introduction" placeholder="请输入内容"></textarea>
                 </div>
-                <div class="input-group">
-                    <span  class="input-group-addon">电话</span>
-                    <input type="text" class="form-control" name="telcode" id="telcode"  value="${readerinfo.telcode}" >
-                </div>
-                <br/>
-                <input type="submit" value="确定" class="btn btn-success btn-sm" class="text-left">
+
+
+                <input type="submit" value="发布" class="btn btn-success btn-sm" class="text-left">
                 <script>
                     function mySubmit(flag){
                         return flag;
                     }
-                    $("#edit").submit(function () {
-                        if($("#name").val()==''||$("#sex").val()==''||$("#birth").val()==''||$("#address").val()==''||$("#telcode").val()==''){
-                            alert("请填入完整图书信息！");
+                    $("#addbook").submit(function () {
+                        if($("#name").val()==''||$("#bookName").val()==''||$("#readerId").val()==''||$("#introduction").val()==''){
+                            alert("请填入完整读后感信息！");
                             return mySubmit(false);
                         }
                     })
                 </script>
             </form>
-        </div>
-    </div>
+
 </div>
+
 
 
 </body>

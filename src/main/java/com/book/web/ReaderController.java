@@ -50,9 +50,9 @@ public class ReaderController {
     @RequestMapping("reader_delete.html")
     public String readerDelete(HttpServletRequest request,RedirectAttributes redirectAttributes){
         int readerId= Integer.parseInt(request.getParameter("readerId"));
-        boolean success=readerInfoService.deleteReaderInfo(readerId);
-
-        if(success){
+        boolean successInfo=readerInfoService.deleteReaderInfo(readerId);
+        boolean successCard=readerCardService.deleteReaderCard(readerId);
+        if(successInfo&&successCard){
             redirectAttributes.addFlashAttribute("succ", "删除成功！");
             return "redirect:/allreaders.html";
         }else {
@@ -63,10 +63,15 @@ public class ReaderController {
     }
     @RequestMapping("/reader_info.html")
     public ModelAndView toReaderInfo(HttpServletRequest request) {
-        ReaderCard readerCard=(ReaderCard) request.getSession().getAttribute("readercard");
-        ReaderInfo readerInfo=readerInfoService.getReaderInfo(readerCard.getReaderId());
-        ModelAndView modelAndView=new ModelAndView("reader_info");
-        modelAndView.addObject("readerinfo",readerInfo);
+    	ModelAndView modelAndView = new ModelAndView("reader_info");
+    	if(request.getSession().getAttribute("readercard")!=null) {
+    		ReaderCard readerCard= (ReaderCard)request.getSession().getAttribute("readercard");
+            ReaderInfo readerInfo=readerInfoService.getReaderInfo(readerCard.getReaderId());
+            modelAndView.addObject("readerinfo",readerInfo);
+    	}
+    	else {
+    		modelAndView.addObject("error","请登录后在查看");
+    	}
         return modelAndView;
     }
     @RequestMapping("reader_edit.html")
@@ -80,7 +85,8 @@ public class ReaderController {
 
     @RequestMapping("reader_edit_do.html")
     public String readerInfoEditDo(HttpServletRequest request,String name,String sex,String birth,String address,String telcode,RedirectAttributes redirectAttributes){
-        int readerId= Integer.parseInt(request.getParameter("id"));
+        //System.out.println(name+"|"+sex+"|"+birth+"|"+address+"|");
+    	int readerId= Integer.parseInt(request.getParameter("id"));
         ReaderCard readerCard = loginService.findReaderCardByUserId(readerId);
         String oldName=readerCard.getName();
         if(!oldName.equals(name)){
@@ -147,44 +153,47 @@ public class ReaderController {
     }
     //用户功能--进入修改密码页面
     @RequestMapping("reader_repasswd.html")
-    public ModelAndView readerRePasswd(){
+    public ModelAndView readerRePasswd(HttpServletRequest request){
         ModelAndView modelAndView=new ModelAndView("reader_repasswd");
+        if(request.getSession().getAttribute("readercard")==null) {
+        	modelAndView.addObject("error", "请先登录");
+        }
         return modelAndView;
     }
     //用户功能--修改密码执行
     @RequestMapping("reader_repasswd_do.html")
     public String readerRePasswdDo(HttpServletRequest request,String oldPasswd,String newPasswd,String reNewPasswd,RedirectAttributes redirectAttributes){
-        ReaderCard readerCard=(ReaderCard) request.getSession().getAttribute("readercard");
-        int readerId=readerCard.getReaderId();
-        String passwd=readerCard.getPasswd();
-
-        if (newPasswd.equals(reNewPasswd)){
-            if(passwd.equals(oldPasswd)){
-                boolean succ=readerCardService.updatePasswd(readerId,newPasswd);
-                if (succ){
-                    ReaderCard readerCardNew = loginService.findReaderCardByUserId(readerId);
-                    request.getSession().setAttribute("readercard", readerCardNew);
-                    redirectAttributes.addFlashAttribute("succ", "密码修改成功！");
-                    return "redirect:/reader_repasswd.html";
-                }else {
-                    redirectAttributes.addFlashAttribute("succ", "密码修改失败！");
-                    return "redirect:/reader_repasswd.html";
-                }
-
-            }else {
-                redirectAttributes.addFlashAttribute("error", "修改失败,原密码错误");
-                return "redirect:/reader_repasswd.html";
-            }
-        }else {
-            redirectAttributes.addFlashAttribute("error", "修改失败,两次输入的新密码不相同");
+        if(request.getSession().getAttribute("readercard")==null) {
+        	redirectAttributes.addFlashAttribute("error", "请先登录！");
             return "redirect:/reader_repasswd.html";
         }
+        else {
+        	ReaderCard readerCard=(ReaderCard) request.getSession().getAttribute("readercard");
+            int readerId=readerCard.getReaderId();
+            String passwd=readerCard.getPasswd();
+            
+            if (newPasswd.equals(reNewPasswd)){
+                if(passwd.equals(oldPasswd)){
+                    boolean succ=readerCardService.updatePasswd(readerId,newPasswd);
+                    if (succ){
+                        ReaderCard readerCardNew = loginService.findReaderCardByUserId(readerId);
+                        request.getSession().setAttribute("readercard", readerCardNew);
+                        redirectAttributes.addFlashAttribute("succ", "密码修改成功！");
+                        return "redirect:/reader_repasswd.html";
+                    }else {
+                        redirectAttributes.addFlashAttribute("error", "密码修改失败！");
+                        return "redirect:/reader_repasswd.html";
+                    }
 
-
-
-
-
-
+                }else {
+                    redirectAttributes.addFlashAttribute("error", "修改失败,原密码错误");
+                    return "redirect:/reader_repasswd.html";
+                }
+            }else {
+                redirectAttributes.addFlashAttribute("error", "修改失败,两次输入的新密码不相同");
+                return "redirect:/reader_repasswd.html";
+            }
+        }
     }
     //管理员功能--读者信息添加
     @RequestMapping("reader_add_do.html")
@@ -219,10 +228,17 @@ public class ReaderController {
 //读者功能--读者信息修改
     @RequestMapping("reader_info_edit.html")
     public ModelAndView readerInfoEditReader(HttpServletRequest request){
-        ReaderCard readerCard=(ReaderCard) request.getSession().getAttribute("readercard");
-        ReaderInfo readerInfo=readerInfoService.getReaderInfo(readerCard.getReaderId());
-        ModelAndView modelAndView=new ModelAndView("reader_info_edit");
-        modelAndView.addObject("readerinfo",readerInfo);
+    	ModelAndView modelAndView;;
+    	if(request.getSession().getAttribute("readercard")!=null) {
+    		modelAndView=new ModelAndView("reader_info_edit");
+    		ReaderCard readerCard=(ReaderCard) request.getSession().getAttribute("readercard");
+            ReaderInfo readerInfo=readerInfoService.getReaderInfo(readerCard.getReaderId());
+            modelAndView.addObject("readerinfo",readerInfo);
+    	}
+    	else {
+    		modelAndView = new ModelAndView("reader_info");
+    		modelAndView.addObject("error","请登陆后再进行修改");
+    	}
         return modelAndView;
 
     }

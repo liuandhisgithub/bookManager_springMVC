@@ -1,10 +1,3 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: 君行天下
-  Date: 2017/7/31
-  Time: 8:09
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -51,11 +44,11 @@
                 </li>
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                        借还管理
+                        读后感管理
                         <b class="caret"></b>
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a href="lendlist.html">借还日志</a></li>
+                        <li><a href="allreflections.html">全部读后感</a></li>
                     </ul>
                 </li>
                 <li >
@@ -117,13 +110,10 @@
                     <input type="text" class="form-control" name="classId" id="classId" value="${detail.classId}">
                 </div>
                 <div class="input-group">
-                    <span class="input-group-addon">书架号</span>
-                    <input type="text" class="form-control" name="pressmark" id="pressmark" value="${detail.pressmark}">
+                    <span  class="input-group-addon">收藏</span>
+                    <input type="text" class="form-control" name="likeNum"  id="likeNum" value="${detail.likeNum}">
                 </div>
-                <div class="input-group">
-                    <span  class="input-group-addon">状态</span>
-                    <input type="text" class="form-control" name="state"  id="state" value="${detail.state}">
-                </div>
+                
                 <input type="submit" value="确定" class="btn btn-success btn-sm" class="text-left">
                 <script>
                     function mySubmit(flag){

@@ -30,10 +30,21 @@
                         个人信息
                     </a>
                 </li>
-                <li >
-                    <a href="mylend.html" >
-                        我的借还
+                <li>
+                    <a href="reader_queryreflection.html" >
+                        读后感查询
                     </a>
+                </li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        我的收藏
+                        <b class="caret"></b>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="likeBook.html">收藏图书</a></li>
+                        <li class="divider"></li>
+                        <li><a href="likeReflection.html">收藏读后感</a></li>
+                    </ul>
                 </li>
                 <li >
                     <a href="reader_repasswd.html" >
@@ -93,24 +104,24 @@
                     <td>${detail.classId}</td>
                 </tr>
                 <tr>
-                    <th>书架号</th>
-                    <td>${detail.pressmark}</td>
-                </tr>
-                <tr>
-                    <th>状态</th>
-                    <c:if test="${detail.state==1}">
-                        <td>在馆</td>
-                    </c:if>
-                    <c:if test="${detail.state==0}">
-                        <td>借出</td>
-                    </c:if>
-
+                    <th>收藏</th>
+                    <td>${detail.likeNum}</td>
                 </tr>
                 </tbody>
             </table>
         </div>
-    </div>
-
+        <c:if test="${empty noReader}">
+        	<!-- 显示收藏 或者 取消收藏 -->
+	        <c:if test="${!empty notlike}">
+				<a href="reader_like_book.html?bookId=<c:out value="${detail.bookId}"></c:out>&classId=<c:out value="${detail.classId}"></c:out>"><button type="button" class="btn btn-success btn-xs">收藏</button></a>
+			</c:if>
+			<c:if test="${!empty like}">
+				<a href="reader_not_like_book.html?bookId=<c:out value="${detail.bookId}"></c:out>"><button type="button" class="btn btn-danger btn-xs">取消收藏</button></a>
+			</c:if>
+			<!-- 显示写读后感 -->
+			<a href="reflection_add.html?bookName=<c:out value="${detail.name}"></c:out>&classId=<c:out value="${detail.classId}"></c:out>"><button type="button" class="btn btn-info btn-xs">发布读后感</button></a>
+		</c:if>
+	</div>
 </div>
 
 </body>

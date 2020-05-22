@@ -1,11 +1,4 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%--
-  Created by IntelliJ IDEA.
-  User: 君行天下
-  Date: 2017/7/31
-  Time: 8:09
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -52,11 +45,11 @@
                 </li>
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                        借还管理
+                        读后感管理
                         <b class="caret"></b>
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a href="lendlist.html">借还日志</a></li>
+                        <li><a href="allreflections.html">全部读后感</a></li>
                     </ul>
                 </li>
                 <li >
@@ -117,18 +110,8 @@
                     <td>${detail.classId}</td>
                 </tr>
                 <tr>
-                    <th>书架号</th>
-                    <td>${detail.pressmark}</td>
-                </tr>
-                <tr>
-                    <th>状态</th>
-                    <c:if test="${detail.state==1}">
-                        <td>在馆</td>
-                    </c:if>
-                    <c:if test="${detail.state==0}">
-                        <td>借出</td>
-                    </c:if>
-
+                    <th>收藏</th>
+                    <td>${detail.likeNum}</td>
                 </tr>
                 </tbody>
             </table>

@@ -15,6 +15,12 @@ public class BookService {
     public void setBookDao(BookDao bookDao) {
         this.bookDao = bookDao;
     }
+    public ArrayList<Book> queryBookByClassId(int classId){
+    	return bookDao.queryBookByClassId(classId);
+    }
+    public ArrayList<Book> queryBookOrderByLikeNum(){
+    	return bookDao.queryBookOrderByLikeNum();
+    }
 
     public ArrayList<Book> queryBook(String searchWord){
         return  bookDao.queryBook(searchWord);
@@ -43,5 +49,6 @@ public class BookService {
     public boolean editBook(Book book){
         return bookDao.editBook(book)>0;
     }
-
+    
+    
 }

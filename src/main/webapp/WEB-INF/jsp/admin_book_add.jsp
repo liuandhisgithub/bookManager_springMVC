@@ -1,10 +1,3 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: 君行天下
-  Date: 2017/7/31
-  Time: 8:09
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -51,11 +44,11 @@
                 </li>
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                        借还管理
+                        读后感管理
                         <b class="caret"></b>
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a href="lendlist.html">借还日志</a></li>
+                        <li><a href="allreflections.html">全部读后感</a></li>
                     </ul>
                 </li>
                 <li >
@@ -104,19 +97,15 @@
                 </div>
                 <div class="form-group">
                     <label for="pubdate">出版日期</label>
-                    <input type="text" class="form-control"  name="pubdate" id="pubdate"   placeholder="请输入出版日期">
+                    <input type="text" class="form-control"  name="pubdate" id="pubdate"   placeholder="请输入出版日期：yyyy-mm-dd">
                 </div>
                 <div class="form-group">
                     <label for="classId">分类号</label>
                     <input type="text" class="form-control" name="classId" id="classId"  placeholder="请输入分类号">
                 </div>
                 <div class="form-group">
-                    <label for="pressmark">书架号</label>
-                    <input type="text" class="form-control"  name="pressmark" id="pressmark" placeholder="请输入书架号">
-                </div>
-                <div class="form-group">
-                    <label for="state">状态</label>
-                    <input type="text" class="form-control"  name="state"  id="state"   placeholder="请输入图书状态">
+                    <label for="state">收藏</label>
+                    <input type="text" class="form-control"  name="likeNum"  id="likeNum"   placeholder="请输入收藏人数">
                 </div>
 
 

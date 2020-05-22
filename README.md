@@ -1,36 +1,16 @@
-# 图书管理系统
-#### 基于Spring+Spring MVC(Maven方式构建)
-[![Build Status](https://travis-ci.org/withstars/Books-Management-System.svg?branch=master)](https://travis-ci.org/withstars/Books-Management-System)
-[![Hex.pm](https://img.shields.io/hexpm/l/plug.svg)](https://github.com/withstars/Books-Management-System)
-### 项目简介
-本图书管理系统基于spring,spring mvc,数据库为mysql。前端使用了Bootstrap。 
-### 系统功能
-该系统实现读者和管理员登陆，图书的增删改查，读者的增删改查，借还图书，密码修改，卡号挂失，超期提醒等功能。
-### 如何使用
-```
-$ git clone https://github.com/withstars/Books-Management-System
+前端使用的是jQuery
+后端使用SpringMVC
+数据库使用的是MySQL
 
-$ cd Books-Management-System
+需要使用的话，自行在数据库配置文件中修改数据库的账号密码
 
-$ mvn clean compile
+需要有一定的maven基础和SpringMVC基础
 
-$ mvn clean package
+主要有用户使用和管理员使用两个模块，用户可以查看书籍信息，读后感信息等，管理员可以进行增删改查操作
 
-$ mvn clean install
+该项目是对withstars/Books-Management-System这个项目进行了一些修改，我的前端技术不是很好，
+前端的页面布局几乎都是原项目的布局，但是在后端添加了读后感功能，并且删除了原项目的借贷功能，
+在用户信息和用户卡操作中也进行了修改
 
-$ mvn jetty:run
-
-http://localhost:9000
-```
-### 说明<br/>
-1. 如果使用该项目出现问题，请联系我 withstars@126.com
-2. 如果该项目对您有帮助,请star鼓励我
-### 下一步:整合MyBatis 个人博客系统<br/>
-*https://github.com/withstars/Blog-System*
-### 本项目截图<br/>
-<img src="https://github.com/ValueStar/Books-Management-System/blob/master/preview/1.PNG">
-<img src="https://github.com/ValueStar/Books-Management-System/blob/master/preview/2.PNG">
-<img src="https://github.com/ValueStar/Books-Management-System/blob/master/preview/3.PNG">
-<img src="https://github.com/ValueStar/Books-Management-System/blob/master/preview/4.PNG">
-<img src="https://github.com/ValueStar/Books-Management-System/blob/master/preview/5.PNG">
-<img src="https://github.com/ValueStar/Books-Management-System/blob/master/preview/6.PNG">
+目前这个项目应该就是最终版了，我后期不太会进行更新，这是我的毕业论文项目，如果有人需要这个项目可自行下载修改
+有什么问题或者搭建环境出现问题了可以加QQ：921958573，我可以在闲暇时免费提供帮助，请在备注中注明来意，否则我会拒绝加Q

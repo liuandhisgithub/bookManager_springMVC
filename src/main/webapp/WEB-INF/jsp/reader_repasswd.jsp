@@ -1,10 +1,3 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: 君行天下
-  Date: 2017/7/31
-  Time: 11:40
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
@@ -37,10 +30,21 @@
                         个人信息
                     </a>
                 </li>
-                <li >
-                    <a href="mylend.html" >
-                        我的借还
+                <li>
+                    <a href="reader_queryreflection.html" >
+                        读后感查询
                     </a>
+                </li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        我的收藏
+                        <b class="caret"></b>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="likeBook.html">收藏图书</a></li>
+                        <li class="divider"></li>
+                        <li><a href="likeReflection.html">收藏读后感</a></li>
+                    </ul>
                 </li>
                 <li class="active">
                     <a href="reader_repasswd.html" >

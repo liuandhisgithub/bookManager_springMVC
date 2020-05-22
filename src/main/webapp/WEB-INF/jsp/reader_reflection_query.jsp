@@ -1,9 +1,9 @@
-<%@ page import="com.book.domain.Book" %>
+<%@ page import="com.book.domain.Reflection" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
-    <title>图书信息</title>
+    <title>读后感信息</title>
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <script src="js/jquery-3.2.1.js"></script>
     <script src="js/bootstrap.min.js" ></script>
@@ -22,7 +22,7 @@
         </div>
         <div class="collapse navbar-collapse" id="example-navbar-collapse">
             <ul class="nav navbar-nav navbar-left">
-                <li class="active">
+                <li >
                     <a href="reader_querybook.html" >
                         图书查询
                     </a>
@@ -32,7 +32,7 @@
                         个人信息
                     </a>
                 </li>
-                <li>
+                <li class="active">
                     <a href="reader_queryreflection.html" >
                         读后感查询
                     </a>
@@ -64,9 +64,9 @@
 
 
 <div style="padding: 30px 550px 10px">
-    <form   method="post" action="reader_querybook_do.html" class="form-inline"  id="searchform">
+    <form   method="post" action="reader_queryreflection_do.html" class="form-inline"  id="searchform">
         <div class="input-group">
-            <input type="text" placeholder="输入图书号或图书名" class="form-control" id="search" name="searchWord" class="form-control">
+            <input type="text" placeholder="输入读后感标题或书名" class="form-control" id="search" name="searchWord" class="form-control">
             <span class="input-group-btn">
                             <input type="submit" value="搜索" class="btn btn-default">
             </span>
@@ -105,7 +105,7 @@
         </div>
     </c:if>
 </div>
-<c:if test="${!empty books}">
+<c:if test="${!empty reflections}">
     <div class="panel panel-default">
         <div class="panel-heading">
             <h3 class="panel-title">
@@ -116,23 +116,21 @@
             <table class="table table-hover">
                 <thead>
                 <tr>
+                    <th>标题</th>
                     <th>书名</th>
-                    <th>作者</th>
-                    <th>出版社</th>
-                    <th>ISBN</th>
+                    <th>作者id</th>
                     <th>收藏</th>
                     <th>详情</th>
                 </tr>
                 </thead>
                 <tbody>
-                <c:forEach items="${books}" var="book">
+                <c:forEach items="${reflections}" var="reflection">
                     <tr>
-                        <td><c:out value="${book.name}"></c:out></td>
-                        <td><c:out value="${book.author}"></c:out></td>
-                        <td><c:out value="${book.publish}"></c:out></td>
-                        <td><c:out value="${book.isbn}"></c:out></td>
-                        <td><c:out value="${book.likeNum}"></c:out></td>
-                        <td><a href="readerbookdetail.html?bookId=<c:out value="${book.bookId}"></c:out>"><button type="button" class="btn btn-success btn-xs">详情</button></a></td>
+                        <td><c:out value="${reflection.name}"></c:out></td>
+                        <td><c:out value="${reflection.bookName}"></c:out></td>
+                        <td><c:out value="${reflection.readerId}"></c:out></td>
+                        <td><c:out value="${reflection.likeNum}"></c:out></td>
+                        <td><a href="readerreflectiondetail.html?reflectionId=<c:out value="${reflection.reflectionId}"></c:out>"><button type="button" class="btn btn-success btn-xs">详情</button></a></td>
                     </tr>
                 </c:forEach>
                 </tbody>

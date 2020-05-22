@@ -1,14 +1,8 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: 君行天下
-  Date: 2017/7/31
-  Time: 8:09
-  To change this template use File | Settings | File Templates.
---%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>借阅《 ${book.name}》</title>
+    <title>《 ${detail.name}》</title>
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <script src="js/jquery-3.2.1.js"></script>
     <script src="js/bootstrap.min.js" ></script>
@@ -51,11 +45,11 @@
                 </li>
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                        借还管理
+                        读后感管理
                         <b class="caret"></b>
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a href="lendlist.html">借还日志</a></li>
+                        <li><a href="allreflections.html">全部读后感</a></li>
                     </ul>
                 </li>
                 <li >
@@ -72,36 +66,40 @@
     </div>
 </nav>
 
-<div class="col-xs-6 col-md-offset-3" style="position: relative;top: 25%">
+<div class="col-xs-6 col-md-offset-3" style="position: relative;top: 10%">
     <div class="panel panel-primary">
         <div class="panel-heading">
-            <h3 class="panel-title">借阅《 ${book.name}》</h3>
+            <h3 class="panel-title">《 ${detail.name}》</h3>
         </div>
         <div class="panel-body">
-            <form action="lendbookdo.html?id=${book.bookId}" method="post" id="lendbook" >
-                <div class="input-group">
-                    <span  class="input-group-addon">书名</span>
-                    <input type="text" readonly="readonly" class="form-control" name="name" id="name" value="${book.name}">
-                </div>
-                <br/>
-                <div class="input-group">
-                    <span class="input-group-addon">读者证号</span>
-                    <input type="text" class="form-control" name="readerId" id="readerId" placeholder="借阅人读者证号" >
-                </div>
-                <br/>
-                <input type="submit" value="确定" class="btn btn-success btn-sm" class="text-left">
-                <script>
-                    function mySubmit(flag){
-                        return flag;
-                    }
-                    $("#lendbook").submit(function () {
-                        if($("#name").val()==''||$("#readerId").val()==''){
-                            alert("请填入完整图书信息！");
-                            return mySubmit(false);
-                        }
-                    })
-                </script>
-            </form>
+            <table class="table table-hover">
+                <tr>
+                    <th width="15%">标题</th>
+                    <td>${detail.name}</td>
+                </tr>
+                <tr>
+                    <th>书名</th>
+                    <td>${detail.bookName}</td>
+                </tr>
+                <tr>
+                    <th>作者id</th>
+                    <td>${detail.readerId}</td>
+                </tr>
+                <tr>
+                    <th>类型</th>
+                    <td>${detail.classId}</td>
+                </tr>
+                <tr>
+                    <th>收藏</th>
+                    <td>${detail.likeNum}</td>
+                </tr>
+                <tr>
+                    <th>内容</th>
+                    <td>${detail.introduction}</td>
+                </tr>
+                
+                </tbody>
+            </table>
         </div>
     </div>
 

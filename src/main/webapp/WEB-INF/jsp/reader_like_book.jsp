@@ -22,7 +22,7 @@
         </div>
         <div class="collapse navbar-collapse" id="example-navbar-collapse">
             <ul class="nav navbar-nav navbar-left">
-                <li class="active">
+                <li >
                     <a href="reader_querybook.html" >
                         图书查询
                     </a>
@@ -37,7 +37,7 @@
                         读后感查询
                     </a>
                 </li>
-                <li class="dropdown">
+                <li class="dropdown active" >
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                         我的收藏
                         <b class="caret"></b>
@@ -63,28 +63,6 @@
 </nav>
 
 
-<div style="padding: 30px 550px 10px">
-    <form   method="post" action="reader_querybook_do.html" class="form-inline"  id="searchform">
-        <div class="input-group">
-            <input type="text" placeholder="输入图书号或图书名" class="form-control" id="search" name="searchWord" class="form-control">
-            <span class="input-group-btn">
-                            <input type="submit" value="搜索" class="btn btn-default">
-            </span>
-        </div>
-    </form>
-    <script>
-        function mySubmit(flag){
-            return flag;
-        }
-        $("#searchform").submit(function () {
-            var val=$("#search").val();
-            if(val==''){
-                alert("请输入关键字");
-                return mySubmit(false);
-            }
-        })
-    </script>
-</div>
 <div style="position: relative;top: 10%">
     <c:if test="${!empty succ}">
         <div class="alert alert-success alert-dismissable">

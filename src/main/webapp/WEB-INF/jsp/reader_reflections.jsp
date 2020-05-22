@@ -3,7 +3,7 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
-    <title>图书信息</title>
+    <title>全部图书信息</title>
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <script src="js/jquery-3.2.1.js"></script>
     <script src="js/bootstrap.min.js" ></script>
@@ -22,7 +22,7 @@
         </div>
         <div class="collapse navbar-collapse" id="example-navbar-collapse">
             <ul class="nav navbar-nav navbar-left">
-                <li class="active">
+                <li >
                     <a href="reader_querybook.html" >
                         图书查询
                     </a>
@@ -32,7 +32,7 @@
                         个人信息
                     </a>
                 </li>
-                <li>
+                <li class="active">
                     <a href="reader_queryreflection.html" >
                         读后感查询
                     </a>
@@ -63,10 +63,10 @@
 </nav>
 
 
-<div style="padding: 30px 550px 10px">
-    <form   method="post" action="reader_querybook_do.html" class="form-inline"  id="searchform">
+<div style="padding: 70px 550px 10px">
+    <form   method="post" action="querybook.html" class="form-inline"  id="searchform">
         <div class="input-group">
-            <input type="text" placeholder="输入图书号或图书名" class="form-control" id="search" name="searchWord" class="form-control">
+           <input type="text" placeholder="输入读后感标题" class="form-control" id="search" name="searchWord" class="form-control">
             <span class="input-group-btn">
                             <input type="submit" value="搜索" class="btn btn-default">
             </span>
@@ -86,61 +86,56 @@
     </script>
 </div>
 <div style="position: relative;top: 10%">
-    <c:if test="${!empty succ}">
-        <div class="alert alert-success alert-dismissable">
-            <button type="button" class="close" data-dismiss="alert"
-                    aria-hidden="true">
-                &times;
-            </button>
-                ${succ}
-        </div>
-    </c:if>
-    <c:if test="${!empty error}">
-        <div class="alert alert-danger alert-dismissable">
-            <button type="button" class="close" data-dismiss="alert"
-                    aria-hidden="true">
-                &times;
-            </button>
-                ${error}
-        </div>
-    </c:if>
-</div>
-<c:if test="${!empty books}">
-    <div class="panel panel-default">
-        <div class="panel-heading">
-            <h3 class="panel-title">
-                查询结果：
-            </h3>
-        </div>
-        <div class="panel-body">
-            <table class="table table-hover">
-                <thead>
-                <tr>
-                    <th>书名</th>
-                    <th>作者</th>
-                    <th>出版社</th>
-                    <th>ISBN</th>
-                    <th>收藏</th>
-                    <th>详情</th>
-                </tr>
-                </thead>
-                <tbody>
-                <c:forEach items="${books}" var="book">
-                    <tr>
-                        <td><c:out value="${book.name}"></c:out></td>
-                        <td><c:out value="${book.author}"></c:out></td>
-                        <td><c:out value="${book.publish}"></c:out></td>
-                        <td><c:out value="${book.isbn}"></c:out></td>
-                        <td><c:out value="${book.likeNum}"></c:out></td>
-                        <td><a href="readerbookdetail.html?bookId=<c:out value="${book.bookId}"></c:out>"><button type="button" class="btn btn-success btn-xs">详情</button></a></td>
-                    </tr>
-                </c:forEach>
-                </tbody>
-            </table>
-        </div>
+<c:if test="${!empty succ}">
+    <div class="alert alert-success alert-dismissable">
+        <button type="button" class="close" data-dismiss="alert"
+                aria-hidden="true">
+            &times;
+        </button>
+        ${succ}
     </div>
 </c:if>
-
+<c:if test="${!empty error}">
+    <div class="alert alert-danger alert-dismissable">
+        <button type="button" class="close" data-dismiss="alert"
+                aria-hidden="true">
+            &times;
+        </button>
+        ${error}
+    </div>
+</c:if>
+</div>
+<div class="panel panel-default" style="width: 90%;margin-left: 5%">
+    <div class="panel-heading" style="background-color: #fff">
+        <h3 class="panel-title">
+            全部读后感
+        </h3>
+    </div>
+    <div class="panel-body">
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <th>标题</th>
+                <th>书名</th>
+                <th>作者id</th>
+                <th>收藏</th>
+                <th>详情</th>
+            </tr>
+            </thead>
+            <tbody>
+            <c:forEach items="${reflections}" var="reflection">
+            <tr>
+                <td><c:out value="${reflection.name}"></c:out></td>
+                <td><c:out value="${reflection.bookName}"></c:out></td>
+                <td><c:out value="${reflection.readerId}"></c:out></td>
+                <td><c:out value="${reflection.likeNum}"></c:out></td>
+                <td><a href="readerreflectiondetail.html?reflectionId=<c:out value="${reflection.reflectionId}"></c:out>"><button type="button" class="btn btn-success btn-xs">详情</button></a></td>
+            </tr>
+            </c:forEach>
+            </tbody>
+        </table>
+    </div>
+</div>
 
 </body>
 </html>
